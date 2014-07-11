@@ -22,6 +22,20 @@
 (defmacro ml-to-byte-vector (ml)
   `(sendbuf-to-byte-vector (with-ml-output-start ,ml)))
 
+(defconstant +doctype-html4-transitional+
+  (if (boundp '+doctype-html4-transitional+)
+      +doctype-html4-transitional+
+      (strcat "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 "
+              "Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">")))
+
+(defconstant +doctype-html5+
+  (if (boundp '+doctype-html5+)
+      +doctype-html5+
+      "<!doctype html>"))
+
+(defvar *doctype*
+  +doctype-html4-transitional+)
+
 (defmacro webapp-ml (title-and-options &body body)
   (with-unique-names (title-ml)
     (destructuring-bind (title &key head-contents)
@@ -36,8 +50,7 @@
          (values
           (with-frame-site
               (with-ml-output-start
-                  (output-raw-ml "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\""
-                                 " \"http://www.w3.org/TR/html4/loose.dtd\">")
+                  (output-raw-ml ,*doctype*)
                 (<html
                  (<head
                   (current-site-call page-head ,title-ml)

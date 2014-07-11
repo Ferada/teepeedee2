@@ -366,6 +366,10 @@
 
    #:+html-id-async-status+
    #:+html-class-scroll-to-bottom+
+
+   #:+doctype-html4-transitional+
+   #:+doctype-html5+
+   #:*doctype*
    ))
 
 
