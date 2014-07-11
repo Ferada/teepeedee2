@@ -154,6 +154,8 @@
   (port :uint16)
   (addr :uint32))
 
+(cffi:defctype sockaddr_in (:struct sockaddr_in))
+
 (eval-always
 ;; Threaded lisps need a more complex way to get errno on Linux
   #+ccl
@@ -656,9 +658,13 @@
     (base :pointer)
   (len :unsigned-long))
 
+(cffi:defctype iovec (:struct iovec))
+
 (cffi:defcstruct timeval
     (sec :unsigned-long)
   (usec :unsigned-long))
+
+(cffi:defctype timeval (:struct timeval))
 
 (def-simple-syscall gettimeofday
     (tv :pointer)
