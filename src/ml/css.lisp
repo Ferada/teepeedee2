@@ -247,6 +247,17 @@
                                   (validate selector properties)
                                   append (css-output-selector-form selector properties))))))
 
+(defmacro css-style (&body selector-properties)
+  (flet ((validate (selector properties)
+           (declare (ignore selector))
+           (validate-properties properties)))
+    `(with-sendbuf ()
+       ,@(loop for sp in selector-properties
+               for selector = (first sp)
+               for properties = (rest sp)
+               do (validate selector properties)
+               append (css-output-selector-form selector properties)))))
+
 (defmacro css-attrib (&rest properties)
   (validate-properties properties)
   `(sendbuf-to-byte-vector

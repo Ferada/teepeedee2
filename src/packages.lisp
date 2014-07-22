@@ -270,6 +270,7 @@
    #:without-ml-output
    #:with-ml-to-string
 
+   #:css-style
    #:css-html-style
    #:css-attrib
 
