@@ -1,15 +1,3 @@
-(cl:defpackage #:teepeedee2.system
-  (:use #:cl))
-(cl:in-package #:teepeedee2.system)
-
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (asdf:operate 'asdf:load-op 'cl-fad))
-
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (loop for addon in (remove-if-not 'cl-fad:directory-pathname-p (cl-fad:list-directory "addons"))
-	do
-	(pushnew addon asdf:*central-registry* :test #'equal)))
-
 #+tpd2-debug
 (progn
   (pushnew :tpd2-debug *features*)
@@ -20,8 +8,16 @@
   :name "teepeedee2"
   :author "John Fremlin <john@fremlin.org>"
   :description "Multiprotocol fast networking framework"
-  :version "1.0"
-
+  :version "1.0.1"
+  :depends-on (:alexandria
+               :cl-fad
+	       :trivial-garbage
+	       :cl-cont
+	       :cffi
+	       :iterate
+	       :cl-irregsexp
+	       :trivial-backtrace
+	       :parenscript)
   :components (
 	       (:module :src
 			:components (
@@ -127,13 +123,4 @@
 				     (:module :truc
 					      :depends-on (:game)
 					      :components ( (:file "truc") (:file "web" :depends-on ("truc"))
-							    (:file "robots" :depends-on ("truc")))))))
-  :depends-on (
-	       :trivial-garbage
-	       :cl-cont
-	       :cffi
-	       :iterate
-	       :alexandria
-	       :cl-irregsexp
-	       :trivial-backtrace
-	       :parenscript))
+							    (:file "robots" :depends-on ("truc"))))))))
