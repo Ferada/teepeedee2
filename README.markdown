@@ -1,4 +1,4 @@
-teepeedee2 
+teepeedee2
 ================================
 
 Homepage
@@ -25,7 +25,7 @@ Untar or git clone
       $ cd teepeedee2
 
 Start sbcl and run the quickstart.lisp
-      
+
       $ sbcl --load quickstart.lisp
 
 This will download the following packages with asdf-install, and their
@@ -34,15 +34,15 @@ dependencies: iterate cffi cl-irregsexp trivial-backtrace
 Note that it DISABLES the GPG signature checking! You will be running
 UNVERIFIED CODE.
 
-	      It will try to download the following packages with 
-	      Install where?
-	      1) System-wide install: 
-	         System in /usr/lib/sbcl/site-systems/
-	         Files in /usr/lib/sbcl/site/ 
-	      2) Personal installation: 
-	         System in /home/username/.sbcl/systems/
-	         Files in /home/username/.sbcl/site/ 
-	       --> 
+              It will try to download the following packages with
+              Install where?
+              1) System-wide install:
+                 System in /usr/lib/sbcl/site-systems/
+                 Files in /usr/lib/sbcl/site/
+              2) Personal installation:
+                 System in /home/username/.sbcl/systems/
+                 Files in /home/username/.sbcl/site/
+               -->
 
 Enter "2" and press enter.
 
@@ -55,23 +55,23 @@ You can now enter new pages at the SBCL REPL
     * (in-package #:teepeedee2.quickstart)
 
     * (defpage "/goodbye" ((name "Friend"))
-    		(<div (<h1 "Bye bye " name) (<p "The universal time is " (get-universal-time))))
+                (<div (<h1 "Bye bye " name) (<p "The universal time is " (get-universal-time))))
 
 
 Benchmarking
 --------
 
-	(in-package #:tpd2)
-	(defpage "/test" (name) :create-frame nil
-	    (tpd2.ml.html:<h1 "Hello " name))
+        (in-package #:tpd2)
+        (defpage "/test" (name) :create-frame nil
+            (tpd2.ml.html:<h1 "Hello " name))
 
-	(http-start-server 8080)
+        (http-start-server 8080)
 
-	(event-loop)
+        (event-loop)
 
 Use apachebench
 
-	$ ab -n 100000 -c10 http://127.0.0.1:8080/test?name=John
+        $ ab -n 100000 -c10 http://127.0.0.1:8080/test?name=John
 
 
 

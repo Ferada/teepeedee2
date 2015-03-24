@@ -15,7 +15,7 @@
   (summary :children (#'identity))
   (content :children (#'identity) :attributes (type))
   (entry  :children (title link id updated summary content)))
-  
+
 (defun w3c-timestring (&optional (universal-time (get-universal-time)))
   "For example 2003-12-13T18:30:02Z"
   (multiple-value-bind (second minute hour date month year)

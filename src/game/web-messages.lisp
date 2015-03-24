@@ -76,4 +76,3 @@
               player " betrayed everybody else.")
    (:new-state ()
                "New game.")))
-

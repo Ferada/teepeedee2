@@ -98,4 +98,3 @@
                             (invoke-restart found))))))
             (values (asdf:oos 'asdf:load-op system) nil)))
         (get-output-stream-string out)))))
-

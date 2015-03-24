@@ -122,4 +122,3 @@
   `(with-independent-timeouts ()
      (let ((*epoll* (make-epoll)) (*recvbufs* nil))
        ,@body)))
-

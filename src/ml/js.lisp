@@ -25,6 +25,3 @@
     (with-sendbuf ()
       "javascript:"
       (js-to-string ,@body))))
-
-
-

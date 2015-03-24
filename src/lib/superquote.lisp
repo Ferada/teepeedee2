@@ -39,4 +39,3 @@
   (if (and (superquote-form-constantp quotee env) (load-time-constantp quotee env))
       `(read-only-load-time-value ,(superquote-function-go quotee))
       form))
-

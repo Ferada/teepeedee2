@@ -81,4 +81,3 @@
       (event-loop))
 
     (is (= (length lines) count))))
-

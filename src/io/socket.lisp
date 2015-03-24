@@ -2,7 +2,7 @@
 
 (define-condition socket-error (error)
   ())
-(define-condition socket-closed (socket-error) 
+(define-condition socket-closed (socket-error)
   ())
 (define-condition socket-explicitly-hungup (socket-error)
   ())

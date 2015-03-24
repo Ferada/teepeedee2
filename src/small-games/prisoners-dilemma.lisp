@@ -74,4 +74,3 @@
                (loop for p in (my players)
                      do (its give-coins p (- (my big-penalty))))
                (my finished :result :penalty)))))))
-

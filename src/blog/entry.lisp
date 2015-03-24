@@ -65,8 +65,8 @@
 
 (my-defun entry inline-ml ()
   (<div :class "blog-entry-inline"
-	(<h2 (<a :href (my url-path) (my title)))
-	(output-object-to-ml me)))
+        (<h2 (<a :href (my url-path) (my title)))
+        (output-object-to-ml me)))
 
 (my-defun entry update-score (&optional (inc 0))
   (unless (my score) (my set-score))
@@ -186,23 +186,23 @@
 
 (my-defun entry read-paragraphs-from-buffer (buffer)
   (cond ((if-match-bind ((* (space)) "(progn") buffer)
-	 (setf (my body-function) 
-	       (compile (gensym (my name))
-			`(lambda ()
-			   (with-ml-output
-			     ,(let ((*package* (find-package '#:tpd2.blog-user))) (read-from-string (force-string buffer)))
-			     )))
-	       ))
-	 (t
-	  (let ((paragraphs
-		 (split-into-paragraphs
-		  (match-replace-all buffer
-		    ("${static-base}"  (byte-vector-cat (blog-static-base-url (my blog)) (my name)))))))
-	    (setf (my body-function)
-		  (lambda ()
-		    (with-ml-output 
-		      (loop for p in paragraphs
-			    do (<p (output-raw-ml p))))))))))
+         (setf (my body-function)
+               (compile (gensym (my name))
+                        `(lambda ()
+                           (with-ml-output
+                             ,(let ((*package* (find-package '#:tpd2.blog-user))) (read-from-string (force-string buffer)))
+                             )))
+               ))
+         (t
+          (let ((paragraphs
+                 (split-into-paragraphs
+                  (match-replace-all buffer
+                    ("${static-base}"  (byte-vector-cat (blog-static-base-url (my blog)) (my name)))))))
+            (setf (my body-function)
+                  (lambda ()
+                    (with-ml-output
+                      (loop for p in paragraphs
+                            do (<p (output-raw-ml p))))))))))
 
 (defun parse-time (str)
   (match-bind
@@ -256,4 +256,3 @@
         (my read-paragraphs-from-buffer remaining))
       (my set-page))
     entry))
-

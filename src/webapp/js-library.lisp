@@ -20,8 +20,8 @@
           (t
            `(ps:getprop
              ,(if (rest object-paths)
-		  `(~ ,@object-paths)
-		  (first object-paths))
+                  `(~ ,@object-paths)
+                  (first object-paths))
              ',slot)))))
 
 (ps:defpsmacro ignore-errors (&body body)

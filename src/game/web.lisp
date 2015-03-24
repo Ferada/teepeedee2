@@ -162,8 +162,8 @@
 
 (my-defun game 'object-to-ml :around ()
           (aif (my game-over)
-	       (<h2 (apply 'message-to-ml it) " " (my play-again-ml) "?")
-	       (call-next-method)))
+               (<h2 (apply 'message-to-ml it) " " (my play-again-ml) "?")
+               (call-next-method)))
 
 (defun current-web-controller (controller)
   (and (web-state-p controller)
@@ -195,12 +195,12 @@
 (my-defun web-state 'simple-channel-body-ml ()
   (assert (my game-state) () "No game started; please use game-new-state")
   (<div :class "game-state"
-	(cond
+        (cond
           ((my timed-out)
-           (<p (load-time-value 
-		(format nil "Timed out; sorry, you took longer than ~R second~:P to respond."
-			*web-state-move-timeout*))
-	       " "
+           (<p (load-time-value
+                (format nil "Timed out; sorry, you took longer than ~R second~:P to respond."
+                        *web-state-move-timeout*))
+               " "
                (my play-again-ml) "?"))
           ((my resigned)
            (<p "Resigned. " (my play-again-ml) "?"))
@@ -212,17 +212,17 @@
                    (loop for m in (my waiting-for-input) do
                          (output-object-to-ml m))))))
 
-	(html-change-username-form)
+        (html-change-username-form)
         (<div :class "talk"
               (html-action-form "Talk "
                   ((text nil :reset ""))
                 (without-ml-output
                   (my timeout-reset)
                   (game-talk (my game-state) me text))))
-	(cond ((not (game-game-over (my game-state)))
-	       (<p :class "close-game"
-		   (html-action-link "Resign"
-		     (my resign)))))
+        (cond ((not (game-game-over (my game-state)))
+               (<p :class "close-game"
+                   (html-action-link "Resign"
+                     (my resign)))))
 
         (<div :class "messages-and-talk"
               (<div :class tpd2.webapp:+html-class-scroll-to-bottom+
@@ -245,7 +245,7 @@
       :font-family "inherit"
       :border "none" :padding "0 0 0 0" :margin "0 0 0 0")
      (<body :font-family "georgia, serif" :word-spacing "0.075em" :letter-spacing "0.025em" :margin-left "5%" :margin-right "5%"
-	    :background-color "white")
+            :background-color "white")
      ((<h1 <h2 <h3 <h4 <h5 <h6) :letter-spacing "0.05em" :font-weight "normal" :margin "0 0 0 0" :padding "0 0 0 0")
      ((<span <div <h1 <h2 <h3 <h4 <h5 <h6 <p <a <input) :direction "ltr" :unicode-bidi "bidi-override")
      ("input[type=text]"
@@ -310,21 +310,21 @@
       :background-color "white"
       :font-size "70%"
       :x-border-radius "0.3em"
-      :border "thin solid #cccccc"	;
+      :border "thin solid #cccccc"      ;
       :z-index 2)
 
      )))
 
 (defsite *site*
     :page-body-start (lambda(title)
-		       `(<div :class "header"
-			      (<h1 :class "mopoko"
-				   (output-raw-ml ,title) " " 
-				   (<A :href (page-link "/")
-				       :class "inherit mopoko"
-				       "mopoko"))
-			      (<h4 :id ,tpd2.webapp:+html-id-async-status+ )
-			      (output-object-to-ml (webapp-frame))))
+                       `(<div :class "header"
+                              (<h1 :class "mopoko"
+                                   (output-raw-ml ,title) " "
+                                   (<A :href (page-link "/")
+                                       :class "inherit mopoko"
+                                       "mopoko"))
+                              (<h4 :id ,tpd2.webapp:+html-id-async-status+ )
+                              (output-object-to-ml (webapp-frame))))
     :page-head (lambda(title)
                  `(with-ml-output
                     (<title "mopoko " (output-raw-ml ,title))
@@ -353,24 +353,24 @@
     (let ((c (make-web-state-from-frame)))
       (game-generator-join-or-start game-generator c)
       (webapp ((string-downcase (force-string (game-name (web-state-game-state c)))))
-	  (webapp-display c))))
+          (webapp-display c))))
 
   (defpage "/" ()
     (webapp ""
-      (webapp-select-one 
+      (webapp-select-one
        ""
        (loop for g being the hash-values of *games*
-	     when (game-generator-advertised g)
-	     collect g)
+             when (game-generator-advertised g)
+             collect g)
        :display (lambda(g) (output-raw-ml
-		       "Play " (game-generator-name g)))
+                       "Play " (game-generator-name g)))
        :describe (lambda (g)
-		   (let ((d (game-generator-description g)))
-		     (when d
-		       (<div :class "play-game-description"
-			     (output-raw-ml d)))))
+                   (let ((d (game-generator-description g)))
+                     (when d
+                       (<div :class "play-game-description"
+                             (output-raw-ml d)))))
        :replace (lambda(g)
-		  (web-game-start g)))
+                  (web-game-start g)))
 
       (html-collapser (<h3 "About mopoko.com")
         (<div :class "about"

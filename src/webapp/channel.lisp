@@ -109,4 +109,3 @@
 
 (my-defun channel 'object-to-ml ()
   (js-html-script (channel (unquote (force-string (my id))) (unquote (my state)))))
-

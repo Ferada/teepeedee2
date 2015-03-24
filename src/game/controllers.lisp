@@ -25,4 +25,3 @@
   (loop do
         (handler-case (return-from move (validate-choice choices (read-safely stream)))
           (error (e) (format t "Sorry that move is not allowed; ~A~&" e)))))
-

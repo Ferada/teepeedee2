@@ -14,4 +14,3 @@
   (<div :class "list-channel"
         (loop for x in (reverse (my list)) do
               (output-object-to-ml x))))
-

@@ -44,5 +44,3 @@
       (<h3 "Pot: " (my pot) ", penalty: " (my penalty) ".")
       (<p "The first player demands some portion of " (coins (my pot)) ". The second player will get the rest, "
           "but if he or she is unhappy with this division then both players lose " (coins (my penalty)) ". "))))
-
-

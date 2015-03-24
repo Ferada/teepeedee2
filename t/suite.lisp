@@ -7,4 +7,3 @@
 (in-package #:tpd2.test)
 
 (def-suite :tpd2)
-

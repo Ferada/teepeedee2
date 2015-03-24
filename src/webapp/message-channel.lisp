@@ -25,4 +25,3 @@
         (loop for x in (reverse (my messages)) do
               (output-raw-ml x))
         (output-raw-ml (call-next-method))))
-

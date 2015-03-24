@@ -8,11 +8,11 @@
 
 ;;; WARNING -- SIGNATURES NOT CHECKED!
 
-(let ((pkgs  
+(let ((pkgs
        (remove-if (lambda (p) (asdf:find-system p nil))
-		  '(iterate cffi cl-irregsexp trivial-backtrace parenscript))))
- (handler-bind (((or asdf-install::key-not-found asdf-install::download-error asdf-install::no-signature) 
-		 (lambda(c) (declare (ignore c)) (invoke-restart 'asdf-install::skip-gpg-check))))
+                  '(iterate cffi cl-irregsexp trivial-backtrace parenscript))))
+ (handler-bind (((or asdf-install::key-not-found asdf-install::download-error asdf-install::no-signature)
+                 (lambda(c) (declare (ignore c)) (invoke-restart 'asdf-install::skip-gpg-check))))
    (when pkgs
      (apply 'asdf-install:install pkgs))))
 
@@ -56,4 +56,3 @@ Please visit http://localhost:8080/hello?name=New+TPD2er
 (event-loop)
 
 ;;; Visit http://localhost:8080/hello
-

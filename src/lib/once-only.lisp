@@ -29,4 +29,3 @@
                     for name in names
                     collect `(,name ,symbol))
                 ,@body)))))
-

@@ -2,4 +2,3 @@
 
 (defsite *default-site*)
 (setf *current-site* *default-site*)
-

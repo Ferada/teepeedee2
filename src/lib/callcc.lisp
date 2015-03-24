@@ -54,5 +54,3 @@
   "Implements delimited continuations."
   (declare (ignore cc))
   (error "Please ensure CALL/CC is called from within WITH-CALL/CC macro."))
-
-

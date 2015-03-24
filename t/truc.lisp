@@ -11,4 +11,3 @@
 
 (test robot-bully
   (tpd2.game::launch-game "Truc" (list (tpd2.game::make-robot-bully) (tpd2.game::make-robot-bully))))
-

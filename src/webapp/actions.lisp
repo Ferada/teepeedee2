@@ -86,7 +86,7 @@
                                 `(<input :type :text :name ,name :value ,value :style (css-attrib :display "none"))))))
                         (cond (label
                                `(progn
-                                  (<label :for ,name ,label (output-raw-ml "&nbsp;")) 
+                                  (<label :for ,name ,label (output-raw-ml "&nbsp;"))
                                   ,input))
                               (t input))))))))
        `(<form
@@ -99,7 +99,7 @@
          (<p
           ,title
           ,@body-ml
-	  (<input :class "plain-submit" :type :submit :value "↵"))))))
+          (<input :class "plain-submit" :type :submit :value "↵"))))))
 
 (defun find-action (id)
   (when id

@@ -34,7 +34,3 @@
                                          (values))))
                                     (t (output-object-to-ml (make-card-from-number card)))))
                         ".")))))
-
-
-
-

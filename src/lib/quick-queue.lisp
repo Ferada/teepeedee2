@@ -42,4 +42,3 @@
   (setf (quick-queue-entry-next (my prev)) (my next))
   (setf (quick-queue-entry-prev (my next)) (my prev))
   (setf (my prev) me (my next) me))
-

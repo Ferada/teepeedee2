@@ -84,41 +84,41 @@
 
 (my-defun blog comment-admin (password entry-index-name)
   (with-site ((my site))
-    (webapp 
-	((with-ml-output "Blog administration for " (my name) ))
+    (webapp
+        ((with-ml-output "Blog administration for " (my name) ))
       (<div :class "blog-admin"
-	    (<form :method :post
-		   :action (my admin-url)
-		   (<p "Password "
-		       (<input :type :text :name "password" )
-		       (<input :class "plain-submit" :type :submit :value "↵")))	   
-	    (when (and password (equal (force-string password) (force-string (my admin-password))))
-	      (unless entry-index-name
-		(<ul :class "admin-entries"
-		     (loop for entry in (my entries)
-			   for en = (entry-name entry)
-			   for ein = (entry-index-name entry)
-			   do
-			   (<li (html-action-link en (my comment-admin password ein))))))
-	      (let ((comments
-		     (if entry-index-name
-			 (datastore-retrieve-indexed 'comment 'entry-index-name entry-index-name)
-			 (remove-if-not (lambda (comment)
-					  (and (typecase (comment-entry-index-name comment)
-						 ((or string byte-vector) t))
-					       (if-match-bind ((= (my comment-index-prefix)) ":")
-							      (comment-entry-index-name comment))))
-					(datastore-retrieve-all 'comment)))))
-		(loop for c in (sort (copy-seq comments) #'> :key #'comment-time)
-		      do (<div :class "comment-admin"
-			       (let ((c c))
-				 (html-action-form "Edit comment"
-				     ((text (comment-text c)  :type <textarea)
-				      (author (comment-author c)))
-				   (setf (comment-text c) text
-					 (comment-author c) author))
-				 (html-action-link "Delete"
-				   (datastore-delete c)))))))))))
+            (<form :method :post
+                   :action (my admin-url)
+                   (<p "Password "
+                       (<input :type :text :name "password" )
+                       (<input :class "plain-submit" :type :submit :value "↵")))
+            (when (and password (equal (force-string password) (force-string (my admin-password))))
+              (unless entry-index-name
+                (<ul :class "admin-entries"
+                     (loop for entry in (my entries)
+                           for en = (entry-name entry)
+                           for ein = (entry-index-name entry)
+                           do
+                           (<li (html-action-link en (my comment-admin password ein))))))
+              (let ((comments
+                     (if entry-index-name
+                         (datastore-retrieve-indexed 'comment 'entry-index-name entry-index-name)
+                         (remove-if-not (lambda (comment)
+                                          (and (typecase (comment-entry-index-name comment)
+                                                 ((or string byte-vector) t))
+                                               (if-match-bind ((= (my comment-index-prefix)) ":")
+                                                              (comment-entry-index-name comment))))
+                                        (datastore-retrieve-all 'comment)))))
+                (loop for c in (sort (copy-seq comments) #'> :key #'comment-time)
+                      do (<div :class "comment-admin"
+                               (let ((c c))
+                                 (html-action-form "Edit comment"
+                                     ((text (comment-text c)  :type <textarea)
+                                      (author (comment-author c)))
+                                   (setf (comment-text c) text
+                                         (comment-author c) author))
+                                 (html-action-link "Delete"
+                                   (datastore-delete c)))))))))))
 
 (my-defun blog set-page ()
   (with-site ((my site))
@@ -130,8 +130,8 @@
           (my rss-feed)))
 
     (defpage-lambda (my admin-url)
-	(lambda (password entry-index-name)
-	  (my comment-admin password entry-index-name)))
+        (lambda (password entry-index-name)
+          (my comment-admin password entry-index-name)))
 
     (defpage-lambda-blog (my post-comment-url)
         (lambda (text author entry-name keep-this-empty .javascript.)
@@ -195,31 +195,31 @@
 (my-defun blog front-page ()
   (let ((all-entries (my ready-entries-http)) (top-count 6) (bottom-count 15))
     (multiple-value-bind (fresh-entries entries)
-	(mv-filter #'entry-hot-off-the-press-p all-entries)
+        (mv-filter #'entry-hot-off-the-press-p all-entries)
       (let ((entries (sort (copy-list entries) #'> :key #'entry-score)))
         (<div :class "blog-front-page"
-	      (let* (
-		     (total-score (loop for e in entries summing (entry-score e)))
-		     (score-mul (/ (length entries) (max 1 total-score)))
-		     (reverse-entries (reverse entries)))
-		(flet ((headlines (count)
-			 (<div :class "blog-front-page-entries"
-			       (loop for entry = (pop entries)
-				     repeat (/ (min (length reverse-entries) count) 3)
-				     while entry
-				     do
-				     (with-ml-output (entry-headline-ml entry score-mul)
-						     (loop repeat 2 do
-							   (with-ml-output (entry-headline-ml (pop reverse-entries) score-mul))))
-				     ))))
-		  (headlines top-count)
-		  (<div :class "blog-fresh-entries"
-			(loop for entry in fresh-entries do
-			      (with-ml-output
-				(entry-inline-ml entry))))
-		  (headlines bottom-count))
-		
-		(my link-to-latest)))))))
+              (let* (
+                     (total-score (loop for e in entries summing (entry-score e)))
+                     (score-mul (/ (length entries) (max 1 total-score)))
+                     (reverse-entries (reverse entries)))
+                (flet ((headlines (count)
+                         (<div :class "blog-front-page-entries"
+                               (loop for entry = (pop entries)
+                                     repeat (/ (min (length reverse-entries) count) 3)
+                                     while entry
+                                     do
+                                     (with-ml-output (entry-headline-ml entry score-mul)
+                                                     (loop repeat 2 do
+                                                           (with-ml-output (entry-headline-ml (pop reverse-entries) score-mul))))
+                                     ))))
+                  (headlines top-count)
+                  (<div :class "blog-fresh-entries"
+                        (loop for entry in fresh-entries do
+                              (with-ml-output
+                                (entry-inline-ml entry))))
+                  (headlines bottom-count))
+
+                (my link-to-latest)))))))
 
 (my-defun blog latest-page ()
   (tpd2.http:with-http-params (tags)
@@ -229,8 +229,8 @@
                   repeat count
                   do
                   (let ((entry (pop entries)))
-		    (with-ml-output
-		      (entry-inline-ml entry))))
+                    (with-ml-output
+                      (entry-inline-ml entry))))
             (when entries
               (<h3 :class "next-entries"
                    (<a :href (page-link (my latest-url) :age (force-byte-vector (entry-time (first entries))) :tags (force-byte-vector tags)) "Older entries (" (length entries) " remaining)")))))))

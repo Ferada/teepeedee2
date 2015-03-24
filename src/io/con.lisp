@@ -241,5 +241,3 @@
 
 (my-defun con connected? ()
   (not (not (socket-peer (my socket)))))
-
-

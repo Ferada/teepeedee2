@@ -1989,5 +1989,3 @@
 
 (defun random-name ()
   (strcat (random-elt +names+) " " (random-letter) " " (random-elt +names+)))
-
-
