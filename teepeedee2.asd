@@ -10,7 +10,6 @@
   :description "Multiprotocol fast networking framework"
   :version "1.0.1"
   :depends-on (:alexandria
-               :cl-fad
                :trivial-garbage
                :cl-cont
                :cffi
@@ -100,11 +99,6 @@
                                            (:file "prisoners-dilemma")
                                            (:file "ultimatum")
                                            (:file "roshambo")))
-                             (:module :blog
-                              :depends-on (:webapp :ml :datastore)
-                              :components ((:file "entry")
-                                           (:file "feed" :depends-on ("blog"))
-                                           (:file "blog" :depends-on ("entry"))))
                              (:module :survey
                               :depends-on (:webapp :ml :datastore)
                               :components ((:file "survey")))
